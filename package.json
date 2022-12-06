@@ -1,0 +1,26 @@
+{
+  "name": "pg-sql-file",
+  "version": "1.0.0",
+  "description": "Query a Postgres database using SQL queries stored in files on disk",
+  "type": "module",
+  "main": "query.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "Postgres",
+    "query",
+    "file"
+  ],
+  "author": "Joshua Golub",
+  "license": "ISC",
+  "dependencies": {
+    "debug": "^4.3.4",
+    "dot-prop": "^7.2.0",
+    "pg": "^8.8.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.26.0",
+    "mocha": "^10.1.0"
+  }
+}
