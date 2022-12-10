@@ -7,6 +7,7 @@ import { fileURLToPath } from "url";
 
 let reporterFnCount = 0;
 let isCacheableFnCount = 0;
+let cacheHitCount = 0;
 let logQueryNameCount = 0;
 let logQueryResultCount = 0;
 
@@ -15,6 +16,7 @@ function reporterFn( err, message ) {
         //  do nothing
     }
     // console.log( message );
+    cacheHitCount += ( message.startsWith( "query.js/getFromQueryCache: found, name" ) ? 1 : 0 );
     logQueryNameCount += ( message.startsWith( "query.js/getFromQueryFile: name" ) ? 1 : 0 );
     logQueryResultCount += ( message.startsWith( "query.js/getFromQueryFile: results" ) ? 1 : 0 );
     reporterFnCount += 1;
@@ -295,6 +297,33 @@ describe( "query.js", function() {
                 assert.equal( err, null );
             }
             await query.init( initOptions );
+        } );
+
+    } );
+
+    describe( "cache", function() {
+
+        //  "cache('clear') should clear the cache"
+        it( "cache('clear') should clear the cache", async function() {
+            try {
+                const rows = await query.execute( "get-uuid-count-cacheable", null, true );
+                const cacheHitCountBefore = cacheHitCount;
+                query.cache( "clear" );
+                const cacheHitCountAfter = cacheHitCount;
+                assert.equal( cacheHitCountBefore, cacheHitCountAfter );
+            } catch ( err ) {
+                assert.equal( err, null );
+            }
+        } );
+
+        //  "cache('invalid') should throw an error"
+        it( "cache('invalid') should throw an error", async function() {
+            try {
+                query.cache( "invalid" );
+                assert.ok( false, "should have thrown an error" );
+            } catch ( err ) {
+                assert.notEqual( err, null );
+            }
         } );
 
     } );

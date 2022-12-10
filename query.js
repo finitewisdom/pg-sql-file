@@ -103,7 +103,7 @@ function getFromQueryCache( name, parameters ) {
 
         rows = appcache.get( key );
         if ( rows ) {
-            debug( null, `query.js/getFromQueryCache: name = ${ name }, row count = ${ rows.length }` );
+            debug( null, `query.js/getFromQueryCache: found, name = ${ name }, row count = ${ rows.length }` );
             if ( rows.length > 0 ) {
                 debug( null, `query.js/getFromQueryCache: rows[0] = ${ abbreviate( JSON.stringify( rows[ 0 ] ) ) }` );
             }
@@ -260,10 +260,19 @@ async function commitTransaction( client, throwError = true ) {
     await postgres.commitTransaction( client, throwError === true );
 }
 
+function cache( mode ) {
+    if ( mode === "clear" ) {
+        appcache.clear();
+    } else {
+        debug( null, `query.js/cache: mode not recognized, mode = "${ mode }` );
+    }
+}
+
 const query = {
     init,
     exit,
     execute,
+    cache,
     beginTransaction,
     rollbackTransaction,
     commitTransaction

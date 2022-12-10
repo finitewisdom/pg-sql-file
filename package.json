@@ -10,7 +10,9 @@
   "keywords": [
     "Postgres",
     "query",
-    "file"
+    "file",
+    "sql",
+    "disk"
   ],
   "author": "Joshua Golub",
   "license": "ISC",
