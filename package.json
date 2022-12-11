@@ -5,7 +5,7 @@
   "type": "module",
   "main": "query.js",
   "scripts": {
-    "test": "mocha"
+    "test": "env-cmd mocha"
   },
   "keywords": [
     "Postgres",
@@ -19,6 +19,7 @@
   "dependencies": {
     "debug": "^4.3.4",
     "dot-prop": "^7.2.0",
+    "env-cmd": "^10.1.0",
     "pg": "^8.8.0"
   },
   "devDependencies": {
