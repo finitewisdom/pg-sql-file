@@ -17,7 +17,7 @@
   "author": "Joshua Golub",
   "license": "ISC",
   "dependencies": {
-    "debug": "^4.3.4",
+    "debug": "^4.3.5",
     "dot-prop": "^7.2.0",
     "env-cmd": "^10.1.0",
     "pg": "^8.8.0"
